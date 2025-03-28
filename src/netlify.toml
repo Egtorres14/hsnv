@@ -1,0 +1,21 @@
+# Configuración para despliegue en Netlify
+
+[build]
+  command = "npm run build"
+  publish = "build"
+
+# Redirecciones para SPA
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  
+# Opciones de encabezados para optimización y seguridad
+[[headers]]
+  for = "/*"
+    [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+
+    
