@@ -1,43 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es-CO">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="icon" href="%PUBLIC_URL%/images/logo_hotel.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
+    <meta name="theme-color" content="#007EA7" />
+    <meta name="description" content="Hotel Sierra Nevada - Experimente la hospitalidad caribeña en el corazón de Santa Marta. Habitaciones confortables desde $120.000, ubicación privilegiada cerca al centro histórico y servicio excepcional para una estancia inolvidable." />
+    <meta name="keywords" content="hotel santa marta, hotel sierra nevada, alojamiento santa marta, hotel centro histórico, habitaciones santa marta, hotel colombia, hotel económico santa marta" />
+    <meta name="author" content="Hotel Sierra Nevada" />
+    <meta name="geo.region" content="CO-MAG" />
+    <meta name="geo.placename" content="Santa Marta" />
+    <meta name="geo.position" content="11.240798;-74.209410" />
+    <meta name="ICBM" content="11.240798, -74.209410" />
+    <meta name="language" content="es" />
+    <meta name="revisit-after" content="7 days" />
+    
+    <!-- Hreflang tags for language/region targeting -->
+    <link rel="alternate" hreflang="es-CO" href="https://hotelsierranevada.com" />
+    <link rel="alternate" hreflang="en" href="https://hotelsierranevada.com/en" />
+    <link rel="alternate" hreflang="x-default" href="https://hotelsierranevada.com" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Hotel Sierra Nevada - Su hogar en Santa Marta" />
+    <meta property="og:description" content="Descubra el encanto del Caribe colombiano en nuestro hotel boutique ubicado en el corazón del centro histórico de Santa Marta. Habitaciones desde $120.000" />
+    <meta property="og:image" content="%PUBLIC_URL%/images/Hotel_frente.jpg" />
+    <meta property="og:url" content="https://hotelsierranevada.com" />
+    <meta property="og:site_name" content="Hotel Sierra Nevada" />
+    <meta property="og:locale" content="es_CO" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Hotel Sierra Nevada - Santa Marta" />
+    <meta name="twitter:description" content="Su puerta de entrada a memorias inolvidables en el corazón de Santa Marta, Colombia" />
+    <meta name="twitter:image" content="%PUBLIC_URL%/images/Hotel_frente.jpg" />
+    
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/images/logo_hotel.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+    <link rel="canonical" href="https://hotelsierranevada.com" />
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="%PUBLIC_URL%/images/Hotel_frente.jpg" as="image" />
+    <link rel="preload" href="%PUBLIC_URL%/images/logo_hotel.png" as="image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" as="style" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" />
+    
+    <!-- DNS prefetch for external resources -->
+    <link rel="dns-prefetch" href="https://cdn.voiceflow.com" />
+    <link rel="dns-prefetch" href="https://maps.google.com" />
+    
+    <title>Hotel Sierra Nevada - Su hogar en Santa Marta | Alojamiento en el Centro Histórico desde $120.000</title>
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
+    <!-- Schema.org markup for Google -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Hotel",
+      "name": "Hotel Sierra Nevada",
+      "image": "https://hotelsierranevada.com/images/Hotel_frente.jpg",
+      "description": "Hotel boutique en el corazón del centro histórico de Santa Marta, ofreciendo habitaciones confortables y servicio excepcional.",
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Calle 21 # 6-73",
+        "addressLocality": "Santa Marta",
+        "addressRegion": "Magdalena",
+        "postalCode": "470004",
+        "addressCountry": "CO"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "11.240798",
+        "longitude": "-74.209410"
+      },
+      "telephone": "+573127417352",
+      "email": "htsierranevada@gmail.com",
+      "url": "https://hotelsierranevada.com",
+      "checkinTime": "15:00",
+      "checkoutTime": "12:00",
+      "amenityFeature": [
+        { "@type": "LocationFeatureSpecification", "name": "WiFi Gratuito" },
+        { "@type": "LocationFeatureSpecification", "name": "Aire Acondicionado" },
+        { "@type": "LocationFeatureSpecification", "name": "Recepción 24 Horas" },
+        { "@type": "LocationFeatureSpecification", "name": "Smart TV" }
+      ],
+      "starRating": {
+        "@type": "Rating",
+        "ratingValue": "4.5"
+      }
+    }
+    </script>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <noscript>Necesita habilitar JavaScript para utilizar este sitio.</noscript>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
   </body>
 </html>

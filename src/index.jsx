@@ -14,6 +14,24 @@ root.render(
   </React.StrictMode>
 );
 
-// Si quieres medir el rendimiento de tu app, puedes usar reportWebVitals
-// Más información: https://bit.ly/CRA-vitals
-reportWebVitals();
+// Register service worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/serviceWorker.js')
+      .then(registration => {
+        console.log('ServiceWorker registration successful:', registration.scope);
+      })
+      .catch(error => {
+        console.error('ServiceWorker registration failed:', error);
+      });
+  });
+}
+
+// Monitor and report web vitals
+reportWebVitals(metric => {
+  // Send metrics to analytics
+  if (process.env.NODE_ENV === 'production') {
+    // You can send to your analytics service here
+    console.log(metric);
+  }
+});

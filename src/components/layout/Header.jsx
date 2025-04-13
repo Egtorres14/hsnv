@@ -2,7 +2,8 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useUI } from '../../contexts/UIContext';
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { FaBars, FaTimes, FaFacebookF, FaInstagram, FaWhatsapp, FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaXTwitter, FaYoutube } from "react-icons/fa6";
 import BookingButton from '../ui/BookingButton';
 
 const Header = () => {
@@ -12,8 +13,6 @@ const Header = () => {
     { name: 'Inicio', path: '/' },
     { name: 'Nuestro Hotel', path: '/nuestro-hotel' },
     { name: 'Habitaciones', path: '/habitaciones' },
-    { name: 'Servicios', path: '/servicios' },
-    { name: 'Eventos', path: '/eventos' },
     { name: 'Contacto', path: '/contacto' },
   ];
 
@@ -27,7 +26,16 @@ const Header = () => {
     >
       <div className="container flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="relative z-50">
+        <Link to="/" className="relative z-50 flex items-center">
+          <img 
+            src="/images/logo_hotel.png" 
+            alt="Logo Hotel Sierra Nevada" 
+            className="h-12 w-auto mr-3"
+            width="48"
+            height="48"
+            loading="eager"
+            fetchpriority="high"
+          />
           <h1 className={`text-2xl font-bold transition-colors duration-300 font-serif md:text-3xl ${
             isScrolled || isMobileMenuOpen ? 'text-primary-800' : 'text-white'
           }`}>
@@ -88,8 +96,8 @@ const Header = () => {
           animate={{ x: isMobileMenuOpen ? 0 : '100%' }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
         >
-          <div className="flex flex-col h-full justify-center items-center">
-            <nav className="w-full">
+          <div className="flex flex-col h-full px-6 pt-20 pb-6">
+            <nav className="flex-grow">
               <ul className="flex flex-col items-center space-y-6">
                 {navLinks.map((link) => (
                   <li key={link.path} className="w-full text-center">
@@ -110,6 +118,76 @@ const Header = () => {
                 </li>
               </ul>
             </nav>
+
+            {/* Contact and Social Info */}
+            <div className="border-t border-secondary-200 pt-6 mt-6">
+              <div className="space-y-4">
+                <div className="flex items-center text-secondary-800">
+                  <FaMapMarkerAlt className="w-5 h-5 mr-3 text-primary-600" />
+                  <span>Calle 21 # 6-73, Santa Marta</span>
+                </div>
+                <div className="flex items-center text-secondary-800">
+                  <FaPhone className="w-5 h-5 mr-3 text-primary-600" />
+                  <a href="tel:+573127417352" className="hover:text-primary-600 transition-colors">
+                    +57 312 741 7352
+                  </a>
+                </div>
+                <div className="flex items-center text-secondary-800">
+                  <FaEnvelope className="w-5 h-5 mr-3 text-primary-600" />
+                  <a href="mailto:htsierranevada@gmail.com" className="hover:text-primary-600 transition-colors">
+                    htsierranevada@gmail.com
+                  </a>
+                </div>
+                
+                <div className="flex justify-center space-x-4 pt-4">
+                  <a
+                    href="https://www.facebook.com/hsierranevada"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center justify-center w-10 h-10 rounded-full bg-primary-600 text-white hover:bg-primary-700 transition-colors"
+                    aria-label="Facebook"
+                  >
+                    <FaFacebookF className="w-5 h-5" />
+                  </a>
+                  <a
+                    href="https://www.instagram.com/hotelsierranevada"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center justify-center w-10 h-10 rounded-full bg-primary-600 text-white hover:bg-primary-700 transition-colors"
+                    aria-label="Instagram"
+                  >
+                    <FaInstagram className="w-5 h-5" />
+                  </a>
+                  <a
+                    href="https://wa.me/573127417352"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center justify-center w-10 h-10 rounded-full bg-primary-600 text-white hover:bg-primary-700 transition-colors"
+                    aria-label="WhatsApp"
+                  >
+                    <FaWhatsapp className="w-5 h-5" />
+                  </a>
+                  <a
+                    href="https://x.com/HSierraNevada"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center justify-center w-10 h-10 rounded-full bg-primary-600 text-white hover:bg-primary-700 transition-colors"
+                    aria-label="X"
+                  >
+                    <FaXTwitter className="w-5 h-5" />
+                  </a>
+                  <a
+                    href="https://www.youtube.com/@hotelsierranevada8967"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center justify-center w-10 h-10 rounded-full bg-primary-600 text-white hover:bg-primary-700 transition-colors"
+                    aria-label="YouTube"
+                  >
+                    <FaYoutube className="w-5 h-5" />
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </motion.div>
       </div>

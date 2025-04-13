@@ -3,24 +3,33 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@nextui-org/react": "^2.6.11",
+    "@nextui-org/theme": "^2.4.5",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "framer-motion": "^10.18.0",
+    "axios": "^1.8.4",
+    "framer-motion": "^11.5.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-helmet": "^6.1.0",
     "react-hook-form": "^7.54.2",
     "react-icons": "^4.12.0",
+    "react-lazy-load-image-component": "^1.6.3",
     "react-router-dom": "^6.30.0",
     "react-scripts": "5.0.1",
-    "swiper": "^10.3.1",
+    "swiper": "^11.2.6",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "npm run optimize-images && react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "optimize-images": "node scripts/optimize-images.js",
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "lint": "eslint src/**/*.{js,jsx}",
+    "lint:fix": "eslint src/**/*.{js,jsx} --fix"
   },
   "eslintConfig": {
     "extends": [
@@ -41,8 +50,13 @@
     ]
   },
   "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^7.0.2",
     "autoprefixer": "^10.4.21",
+    "cssnano": "^7.0.6",
     "postcss": "^8.5.3",
+    "postcss-import": "^16.1.0",
+    "sharp": "^0.34.1",
+    "source-map-explorer": "^2.5.3",
     "tailwindcss": "^3.4.17"
   }
 }

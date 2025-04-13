@@ -76,3 +76,51 @@
 .swiper-pagination-bullet-active {
   @apply bg-primary-600;
 }
+
+/* Estilos del carrusel de testimonios */
+.testimonials-swiper {
+  position: relative;
+  padding: 50px 0;
+  overflow: visible !important;
+}
+
+.testimonials-swiper .swiper-wrapper {
+  transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.testimonials-swiper .swiper-slide {
+  width: 300px !important;
+  user-select: none;
+  transition: all 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.testimonials-swiper .swiper-pagination {
+  position: relative;
+  bottom: -20px;
+}
+
+.testimonials-swiper .swiper-pagination-bullet {
+  background: #ccc;
+  opacity: 0.6;
+}
+
+.testimonials-swiper .swiper-pagination-bullet-active {
+  background: var(--primary-600);
+  opacity: 1;
+}
+
+/* Ajustes específicos para las tarjetas */
+.testimonial-card {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  cursor: grab;
+  transition: transform 0.3s ease;
+}
+
+.testimonial-card:active {
+  cursor: grabbing;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-5px);
+}

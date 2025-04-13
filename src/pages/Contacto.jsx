@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet';
 import { FaMapMarkerAlt, FaEnvelope, FaPhone, FaWhatsapp, FaFacebookF, FaInstagram, FaTripadvisor } from 'react-icons/fa';
 import ContactForm from '../components/ui/ContactForm';
 
@@ -7,33 +8,32 @@ const Contacto = () => {
   // Información de contacto
   const contactInfo = {
     direccion: {
-      calle: 'Calle 14 #5-23',
+      calle: 'Calle 21 # 6-73',
       ciudad: 'Santa Marta',
       pais: 'Colombia',
       codigoPostal: '470004',
-      mapa: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15673.771816458127!2d-74.22127417916546!3d11.242440514006199!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8ef4f5cdddb3a483%3A0x866aba2b8c96b865!2sSanta%20Marta%2C%20Magdalena!5e0!3m2!1ses!2sco!4v1616642962034!5m2!1ses!2sco',
+      mapa: 'https://www.google.com/maps/place/11%C2%B014\'26.7%22N+74%C2%B012\'33.8%22W/@11.2407494,-74.2119713,17z/data=!3m1!4b1!4m4!3m3!8m2!3d11.2407494!4d-74.2093964?hl=es&entry=ttu&g_ep=EgoyMDI1MDMzMC4wIKXMDSOASAFQAw%3D%3D',
     },
     contacto: {
-      telefono: '+57 300 123 4567',
-      fijo: '+57 (5) 123 456',
-      email: 'info@hotelsierranevada.com',
-      whatsapp: '+57 300 123 4567',
+      telefono: '+57 3127417352',
+      email: 'htsierranevada@gmail.com',
+      whatsapp: '+57 3127417352',
     },
     redesSociales: [
       {
         nombre: 'Facebook',
         icono: <FaFacebookF />,
-        url: 'https://facebook.com',
+        url: 'https://www.facebook.com/hsierranevada',
       },
       {
         nombre: 'Instagram',
         icono: <FaInstagram />,
-        url: 'https://instagram.com',
+        url: 'https://www.instagram.com/hotelsierranevada?igsh=MTZvODJoMGczdzV6MQ%3D%3D&utm_source=gr',
       },
       {
-        nombre: 'TripAdvisor',
-        icono: <FaTripadvisor />,
-        url: 'https://tripadvisor.com',
+        nombre: 'WhatsApp',
+        icono: <FaWhatsapp />,
+        url: 'https://wa.me/573127417352',
       },
     ],
   };
@@ -41,47 +41,68 @@ const Contacto = () => {
   // Preguntas frecuentes
   const faq = [
     {
-      pregunta: '¿Cuál es la hora de check-in y check-out?',
-      respuesta: 'El check-in es a partir de las 15:00 horas y el check-out hasta las 12:00 horas. Si necesita un horario diferente, contáctenos y haremos lo posible por acomodar su solicitud.',
-    },
-    {
-      pregunta: '¿Ofrecen servicio de traslado desde el aeropuerto?',
-      respuesta: 'Sí, ofrecemos servicio de traslado desde y hacia el Aeropuerto Internacional Simón Bolívar con cargo adicional. Por favor, reserve este servicio con al menos 24 horas de anticipación.',
+      pregunta: '¿Se permiten visitas durante mi estancia?',
+      respuesta: 'Se permiten visitas a los huéspedes, pero solo en las zonas comunes del hotel. La entrada de una persona a la habitación conlleva un suplemento.',
     },
     {
       pregunta: '¿Están cerca de las principales atracciones turísticas?',
       respuesta: 'Sí, estamos ubicados a pocas cuadras del centro histórico de Santa Marta, a 10 minutos en auto de la Playa del Rodadero y a 30 minutos del Parque Nacional Tayrona.',
     },
     {
-      pregunta: '¿El hotel cuenta con estacionamiento?',
-      respuesta: 'Sí, ofrecemos estacionamiento gratuito para nuestros huéspedes, sujeto a disponibilidad. Por favor, infórmenos con anticipación si planea llegar en vehículo.',
+      pregunta: '¿Tienen baño privado y servicio de lavandería todas las habitaciones?',
+      respuesta: 'Sí, todas nuestras habitaciones cuentan con baño privado completamente equipado y ofrecemos servicio de lavandería disponible todos los días. Las habitaciones incluyen amenidades de baño de alta calidad y el servicio de lavandería tiene un tiempo de entrega de 24 horas.',
+    },
+    {
+      pregunta: '¿Cuál es la hora de check-in y check-out?',
+      respuesta: 'El check-in es a partir de las 15:00 horas y el check-out hasta las 12:00 horas. Si necesita un horario diferente, contáctenos y haremos lo posible por acomodar su solicitud.',
     },
   ];
 
-  // Departamentos
-  const departamentos = [
-    {
-      nombre: 'Reservaciones',
-      descripcion: 'Para consultas sobre disponibilidad, tarifas y reservas.',
-      email: 'reservas@hotelsierranevada.com',
-      telefono: '+57 300 123 4567',
-    },
-    {
-      nombre: 'Eventos',
-      descripcion: 'Para organizar bodas, conferencias y eventos especiales.',
-      email: 'eventos@hotelsierranevada.com',
-      telefono: '+57 300 765 4321',
-    },
-    {
-      nombre: 'Atención al Cliente',
-      descripcion: 'Para comentarios, sugerencias o resolver cualquier inquietud.',
-      email: 'atencion@hotelsierranevada.com',
-      telefono: '+57 300 987 6543',
-    },
-  ];
+  const contactSchema = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contacto - Hotel Sierra Nevada",
+    "description": "Contáctenos para reservas o consultas sobre el Hotel Sierra Nevada en Santa Marta. Atención personalizada las 24 horas.",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "Hotel Sierra Nevada",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+573127417352",
+        "contactType": "customer service",
+        "areaServed": "CO",
+        "availableLanguage": ["Spanish", "English"],
+        "email": "htsierranevada@gmail.com"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Calle 21 # 6-73",
+        "addressLocality": "Santa Marta",
+        "addressRegion": "Magdalena",
+        "postalCode": "470004",
+        "addressCountry": "CO"
+      }
+    }
+  };
 
   return (
     <>
+      <Helmet>
+        <title>Contacto - Hotel Sierra Nevada | Reservas y Atención al Cliente</title>
+        <meta name="description" content="Contáctenos para reservas o información sobre el Hotel Sierra Nevada en Santa Marta. Atención personalizada 24/7, ubicación privilegiada y servicios premium." />
+        <meta name="keywords" content="contacto hotel santa marta, reservas hotel sierra nevada, teléfono hotel santa marta, ubicación hotel sierra nevada" />
+        <link rel="canonical" href="https://hotelsierranevada.com/contacto" />
+        
+        <meta property="og:title" content="Contacto - Hotel Sierra Nevada" />
+        <meta property="og:description" content="Comuníquese con nosotros para reservas o información. Atención personalizada 24/7." />
+        <meta property="og:url" content="https://hotelsierranevada.com/contacto" />
+        <meta property="og:type" content="website" />
+        
+        <script type="application/ld+json">
+          {JSON.stringify(contactSchema)}
+        </script>
+      </Helmet>
+
       {/* Hero Section */}
       <section 
         className="relative py-24 text-white bg-center bg-cover md:py-32"
@@ -129,12 +150,6 @@ const Contacto = () => {
                     </a>
                   </li>
                   <li className="flex items-center">
-                    <FaPhone className="mr-3 text-primary-500 w-5 h-5" />
-                    <a href={`tel:${contactInfo.contacto.fijo}`} className="transition-colors duration-300 text-secondary-600 hover:text-primary-600">
-                      {contactInfo.contacto.fijo} (Fijo)
-                    </a>
-                  </li>
-                  <li className="flex items-center">
                     <FaEnvelope className="mr-3 text-primary-500 w-5 h-5" />
                     <a href={`mailto:${contactInfo.contacto.email}`} className="transition-colors duration-300 text-secondary-600 hover:text-primary-600">
                       {contactInfo.contacto.email}
@@ -152,18 +167,23 @@ const Contacto = () => {
               <div className="mb-8">
                 <h3 className="mb-3 text-xl font-bold">Redes Sociales</h3>
                 <div className="flex space-x-4">
-                  {contactInfo.redesSociales.map((red, index) => (
-                    <a
-                      key={index}
-                      href={red.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="flex items-center justify-center w-10 h-10 transition-colors duration-300 rounded-full bg-secondary-100 hover:bg-primary-600 hover:text-white text-primary-600"
-                      aria-label={red.nombre}
-                    >
-                      {red.icono}
-                    </a>
-                  ))}
+                  {contactInfo.redesSociales.map((red, index) => {
+                    if (red.nombre === 'Facebook' || red.nombre === 'Instagram' || red.nombre === 'WhatsApp') {
+                      return (
+                        <a
+                          key={index}
+                          href={red.url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="flex items-center justify-center w-10 h-10 transition-colors duration-300 rounded-full bg-secondary-100 hover:bg-primary-600 hover:text-white text-primary-600"
+                          aria-label={red.nombre}
+                        >
+                          {red.icono}
+                        </a>
+                      );
+                    }
+                    return null;
+                  })}
                 </div>
               </div>
               
@@ -194,53 +214,16 @@ const Contacto = () => {
       {/* Google Maps */}
       <section className="py-12">
         <div className="container">
-          <div className="overflow-hidden rounded-lg shadow-lg h-96">
-            <iframe
-              src={contactInfo.direccion.mapa}
-              className="w-full h-full border-0"
-              allowFullScreen=""
-              loading="lazy"
+          <div className="overflow-hidden rounded-lg shadow-lg h-[600px]">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1956.6400203342334!2d-74.20941069999999!3d11.240798!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8ef4f57ba95ad43b%3A0xa06bb1fc5661b6fe!2sHotel%20Sierra%20Nevada!5e0!3m2!1ses-419!2ses" 
+              className="w-full h-full"
+              style={{ border: 0 }}
+              allowFullScreen="" 
+              loading="lazy" 
+              referrerPolicy="no-referrer-when-downgrade"
               title="Ubicación del Hotel Sierra Nevada"
             ></iframe>
-          </div>
-        </div>
-      </section>
-
-      {/* Departamentos */}
-      <section className="py-16 bg-secondary-50 md:py-24">
-        <div className="container">
-          <div className="text-center">
-            <h2 className="mb-6 text-3xl font-bold md:text-4xl font-serif">Nuestros Departamentos</h2>
-            <p className="max-w-2xl mx-auto mb-12 text-lg text-secondary-600">
-              Para una atención más especializada, puede contactar directamente con el departamento correspondiente.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-            {departamentos.map((depto, index) => (
-              <motion.div 
-                key={index}
-                whileHover={{ y: -5 }}
-                className="p-6 bg-white rounded-lg shadow-md animate-on-scroll"
-              >
-                <h3 className="mb-2 text-xl font-bold">{depto.nombre}</h3>
-                <p className="mb-4 text-secondary-600">{depto.descripcion}</p>
-                <ul className="space-y-2">
-                  <li className="flex items-center">
-                    <FaEnvelope className="mr-2 text-primary-500" />
-                    <a href={`mailto:${depto.email}`} className="transition-colors duration-300 text-secondary-600 hover:text-primary-600">
-                      {depto.email}
-                    </a>
-                  </li>
-                  <li className="flex items-center">
-                    <FaPhone className="mr-2 text-primary-500" />
-                    <a href={`tel:${depto.telefono}`} className="transition-colors duration-300 text-secondary-600 hover:text-primary-600">
-                      {depto.telefono}
-                    </a>
-                  </li>
-                </ul>
-              </motion.div>
-            ))}
           </div>
         </div>
       </section>
@@ -278,34 +261,22 @@ const Contacto = () => {
         </div>
       </section>
 
-      {/* Newsletter Section */}
-      <section className="py-16 bg-primary-50 md:py-24">
-        <div className="container">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="mb-6 text-3xl font-bold md:text-4xl font-serif">Suscríbase a Nuestro Boletín</h2>
-            <p className="mb-8 text-lg text-secondary-600">
-              Reciba nuestras últimas noticias, ofertas especiales y promociones exclusivas directamente en su bandeja de entrada.
-            </p>
-            
-            <form className="flex flex-col mx-auto space-y-4 md:flex-row md:space-y-0 md:space-x-4 max-w-xl">
-              <input 
-                type="email" 
-                placeholder="Su correo electrónico" 
-                className="flex-grow px-4 py-3 border border-secondary-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-300"
-                required
-              />
-              <button 
-                type="submit"
-                className="px-6 py-3 font-medium text-white transition-colors duration-300 rounded-md bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-300"
-              >
-                Suscribirse
-              </button>
-            </form>
-            
-            <p className="mt-4 text-sm text-secondary-500">
-              Respetamos su privacidad. Puede cancelar su suscripción en cualquier momento.
-            </p>
-          </div>
+      {/* CTA Section */}
+      <section 
+        className="py-20 text-white bg-center bg-cover bg-no-repeat"
+        style={{ 
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/images/placeholder.jpg')` 
+        }}
+      >
+        <div className="container text-center">
+          <h2 className="mb-6 text-3xl font-bold md:text-4xl font-serif">¡Contáctenos Hoy!</h2>
+          <p className="max-w-2xl mx-auto mb-8 text-lg">
+            Estamos aquí para responder todas sus preguntas y ayudarle a planificar su estancia perfecta.
+          </p>
+          <a href="tel:+573127417352" className="btn btn-accent">
+            <FaPhone className="mr-2" />
+            Llámenos
+          </a>
         </div>
       </section>
     </>

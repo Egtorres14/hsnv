@@ -2,79 +2,96 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import RoomCard from '../components/ui/RoomCard';
 import { FaBed, FaUsers, FaWifi, FaTv, FaSnowflake, FaCoffee, FaSearch } from 'react-icons/fa';
+import { Helmet } from 'react-helmet';
 
 const Habitaciones = () => {
   const [filter, setFilter] = useState('all');
   
-  // Datos de ejemplo para todas las habitaciones
+  // Datos reales de las habitaciones
   const allRooms = [
     {
       id: 1,
-      title: 'Suite Real',
-      description: 'Nuestra suite más lujosa con vistas panorámicas, sala de estar separada y todas las comodidades premium.',
-      image: '/images/placeholder.jpg',
-      price: 'COP 650.000',
-      capacity: 6,
-      bedType: '3 Camas King',
-      type: 'suite',
-      services: ['wifi', 'tv', 'ac', 'coffee'],
+      title: 'Habitación Cuádruple',
+      description: 'Espaciosa habitación para 4 personas con todas las comodidades para una estancia perfecta en familia o con amigos.',
+      images: ['/images/Habitacion_cuadruple_1.JPG', '/images/Habitacion_cuadruple_2.JPG'],
+      price: 'Desde COP 160.000',
+      capacity: 4,
+      type: 'cuadruple',
+      services: ['wifi', 'tv', 'ac'],
     },
     {
       id: 2,
-      title: 'Suite Presidencial',
-      description: 'Elegante suite con amplio espacio, zona de estar y todas las comodidades de lujo para una estancia perfecta.',
-      image: '/images/placeholder.jpg',
-      price: 'COP 450.000',
-      capacity: 4,
-      bedType: '2 Camas King',
-      type: 'suite',
-      services: ['wifi', 'tv', 'ac', 'coffee'],
+      title: 'Habitación Doble Deluxe',
+      description: 'Elegante habitación doble con detalles de lujo y acabados premium para una estancia con mayor confort.',
+      images: ['/images/Habitacion_doble_deluxe_1.JPG', '/images/Habitacion_doble_deluxe_2.JPG', '/images/Habitacion_doble_deluxe_3.JPG'],
+      price: 'Desde COP 140.000',
+      capacity: 2,
+      type: 'doble-deluxe',
+      services: ['wifi', 'tv', 'ac'],
     },
     {
       id: 3,
-      title: 'Habitación Deluxe',
-      description: 'Espaciosa habitación con cama king y todas las comodidades para una estancia confortable y relajante.',
-      image: '/images/placeholder.jpg',
-      price: 'COP 320.000',
+      title: 'Habitación Doble Estándar',
+      description: 'Opción ideal para viajeros que buscan comodidad a un precio accesible, con todas las amenidades esenciales.',
+      images: ['/images/Habitacion_doble_economica_1.JPG', '/images/Habitacion_doble_economica_2.JPG', '/images/Habitacion_doble_economica_3.JPG'],
+      price: 'Desde COP 120.000',
       capacity: 2,
-      bedType: '1 Cama King',
-      type: 'deluxe',
-      services: ['wifi', 'tv', 'ac', 'coffee'],
+      type: 'doble-economica',
+      services: ['wifi', 'tv', 'ac'],
     },
     {
       id: 4,
-      title: 'Habitación Estándar',
-      description: 'Acogedora habitación con todas las comodidades esenciales para una estadía confortable en Santa Marta.',
-      image: '/images/placeholder.jpg',
-      price: 'COP 250.000',
+      title: 'Habitación Doble Superior',
+      description: 'Amplia habitación con cama doble y acabados superiores, ideal para parejas que buscan una experiencia confortable.',
+      images: ['/images/Habitacion_doble_superior_1.JPG', '/images/Habitacion_doble_superior_2.JPG', '/images/Habitacion_doble_superior_3.JPG'],
+      price: 'Desde COP 140.000',
       capacity: 2,
-      bedType: '1 Cama Queen',
-      type: 'standard',
-      services: ['wifi', 'tv', 'ac', 'coffee'],
+      type: 'doble-superior',
+      services: ['wifi', 'tv', 'ac'],
     },
     {
       id: 5,
-      title: 'Habitación Familiar',
-      description: 'Amplia habitación ideal para familias, con espacio adicional y comodidades para todos los miembros.',
-      image: '/images/placeholder.jpg',
-      price: 'COP 380.000',
-      capacity: 4,
-      bedType: '2 Camas Queen',
-      type: 'deluxe',
-      services: ['wifi', 'tv', 'ac', 'coffee'],
+      title: 'Habitación Quíntuple',
+      description: 'Nuestra opción más amplia para grupos grandes o familias numerosas, con espacio para hasta 5 personas.',
+      images: ['/images/Habitacion_quintuple_1.JPG', '/images/Habitacion_quintuple_2.JPG'],
+      price: 'Desde COP 180.000',
+      capacity: 5,
+      type: 'quintuple',
+      services: ['wifi', 'tv', 'ac'],
     },
     {
       id: 6,
-      title: 'Habitación con Vista al Mar',
-      description: 'Disfrute de impresionantes vistas al mar Caribe desde esta confortable habitación.',
-      image: '/images/placeholder.jpg',
-      price: 'COP 350.000',
-      capacity: 2,
-      bedType: '1 Cama King',
-      type: 'deluxe',
-      services: ['wifi', 'tv', 'ac', 'coffee'],
+      title: 'Habitación Triple',
+      description: 'Confortable habitación para tres personas, perfecta para pequeños grupos que buscan comodidad compartida.',
+      images: ['/images/Habitacion_triple_1.JPG', '/images/Habitacion_triple_2.JPG', '/images/Habitacion_triple_3.JPG'],
+      price: 'Desde COP 150.000',
+      capacity: 3,
+      type: 'triple',
+      services: ['wifi', 'tv', 'ac'],
     },
   ];
+
+  const roomsSchema = {
+    "@context": "https://schema.org",
+    "@type": "Hotel",
+    "name": "Hotel Sierra Nevada",
+    "url": "https://hotelsierranevada.com/habitaciones",
+    "containsPlace": allRooms.map(room => ({
+      "@type": "HotelRoom",
+      "name": room.title,
+      "description": room.description,
+      "occupancy": {
+        "@type": "QuantitativeValue",
+        "maxValue": room.capacity
+      },
+      "amenityFeature": room.services.map(service => ({
+        "@type": "LocationFeatureSpecification",
+        "name": service === 'wifi' ? 'WiFi Gratuito' : service === 'tv' ? 'Smart TV' : 'Aire Acondicionado'
+      })),
+      "priceRange": room.price,
+      "image": room.images.map(img => `https://hotelsierranevada.com${img}`)
+    }))
+  };
 
   // Filtrar habitaciones según selección
   const filteredRooms = filter === 'all' 
@@ -83,18 +100,35 @@ const Habitaciones = () => {
 
   return (
     <>
+      <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify(roomsSchema)}
+        </script>
+      </Helmet>
+
       {/* Hero Section */}
       <section 
         className="relative py-24 text-white bg-center bg-cover md:py-32"
         style={{ 
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/images/placeholder.jpg')` 
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/images/Hotel_frente.jpg')`
         }}
       >
         <div className="container text-center">
-          <h1 className="mb-4 text-4xl font-bold md:text-5xl lg:text-6xl font-serif">Nuestras Habitaciones</h1>
+          <h1 className="mb-4 text-4xl font-bold md:text-5xl lg:text-6xl font-serif">Descubre tu Estancia Ideal</h1>
           <p className="max-w-2xl mx-auto text-lg">
-            Elija entre nuestra variedad de habitaciones y suites de lujo, todas diseñadas para ofrecerle la máxima comodidad y relajación.
+            Explora nuestra variedad de habitaciones, desde opciones económicas hasta lujosas suites, todas diseñadas para tu confort.
           </p>
+        </div>
+      </section>
+
+      {/* Price Notice Section */}
+      <section className="py-8 bg-primary-50">
+        <div className="container">
+          <div className="text-center">
+            <p className="text-lg text-secondary-600">
+              Los precios de las habitaciones pueden variar en función de la temporada.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -113,34 +147,64 @@ const Habitaciones = () => {
               Todas
             </button>
             <button 
-              onClick={() => setFilter('standard')}
+              onClick={() => setFilter('cuadruple')}
               className={`px-6 py-2 rounded-full transition-colors ${
-                filter === 'standard' 
+                filter === 'cuadruple' 
                   ? 'bg-primary-600 text-white' 
                   : 'bg-secondary-100 text-secondary-800 hover:bg-secondary-200'
               }`}
             >
-              Estándar
+              Cuádruple
             </button>
             <button 
-              onClick={() => setFilter('deluxe')}
+              onClick={() => setFilter('doble-deluxe')}
               className={`px-6 py-2 rounded-full transition-colors ${
-                filter === 'deluxe' 
+                filter === 'doble-deluxe' 
                   ? 'bg-primary-600 text-white' 
                   : 'bg-secondary-100 text-secondary-800 hover:bg-secondary-200'
               }`}
             >
-              Deluxe
+              Doble Deluxe
             </button>
             <button 
-              onClick={() => setFilter('suite')}
+              onClick={() => setFilter('doble-economica')}
               className={`px-6 py-2 rounded-full transition-colors ${
-                filter === 'suite' 
+                filter === 'doble-economica' 
                   ? 'bg-primary-600 text-white' 
                   : 'bg-secondary-100 text-secondary-800 hover:bg-secondary-200'
               }`}
             >
-              Suites
+              Doble Económica
+            </button>
+            <button 
+              onClick={() => setFilter('doble-superior')}
+              className={`px-6 py-2 rounded-full transition-colors ${
+                filter === 'doble-superior' 
+                  ? 'bg-primary-600 text-white' 
+                  : 'bg-secondary-100 text-secondary-800 hover:bg-secondary-200'
+              }`}
+            >
+              Doble Superior
+            </button>
+            <button 
+              onClick={() => setFilter('quintuple')}
+              className={`px-6 py-2 rounded-full transition-colors ${
+                filter === 'quintuple' 
+                  ? 'bg-primary-600 text-white' 
+                  : 'bg-secondary-100 text-secondary-800 hover:bg-secondary-200'
+              }`}
+            >
+              Quíntuple
+            </button>
+            <button 
+              onClick={() => setFilter('triple')}
+              className={`px-6 py-2 rounded-full transition-colors ${
+                filter === 'triple' 
+                  ? 'bg-primary-600 text-white' 
+                  : 'bg-secondary-100 text-secondary-800 hover:bg-secondary-200'
+              }`}
+            >
+              Triple
             </button>
           </div>
         </div>
@@ -175,7 +239,7 @@ const Habitaciones = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3 max-w-4xl mx-auto">
             <div className="flex flex-col items-center p-6 bg-white rounded-lg">
               <FaWifi className="w-8 h-8 mb-3 text-primary-600" />
               <h3 className="mb-2 text-lg font-semibold">Wi-Fi Gratuito</h3>
@@ -192,12 +256,6 @@ const Habitaciones = () => {
               <FaSnowflake className="w-8 h-8 mb-3 text-primary-600" />
               <h3 className="mb-2 text-lg font-semibold">Aire Acondicionado</h3>
               <p className="text-sm text-center text-secondary-600">Control de temperatura independiente</p>
-            </div>
-            
-            <div className="flex flex-col items-center p-6 bg-white rounded-lg">
-              <FaCoffee className="w-8 h-8 mb-3 text-primary-600" />
-              <h3 className="mb-2 text-lg font-semibold">Cafetera</h3>
-              <p className="text-sm text-center text-secondary-600">Café y té de cortesía en la habitación</p>
             </div>
           </div>
         </div>

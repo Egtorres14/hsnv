@@ -1,17 +1,74 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { motion } from 'framer-motion';
 import { useUI } from '../../contexts/UIContext';
 import { FaTimes } from 'react-icons/fa';
+import axios from 'axios';
 
 const BookingForm = () => {
   const { toggleBookingForm } = useUI();
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
+  const [minCheckOut, setMinCheckOut] = useState(new Date().toISOString().split('T')[0]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
 
-  const onSubmit = (data) => {
-    console.log(data);
-    alert("¡Gracias por su reserva! Nos pondremos en contacto con usted pronto.");
-    toggleBookingForm();
+  // URL de tu servidor intermedio
+  const API_URL = 'http://localhost:3001/api/booking';
+
+  // Watch the checkIn value to update checkOut min date
+  const checkInDate = watch('checkIn');
+  
+  React.useEffect(() => {
+    if (checkInDate) {
+      const nextDay = new Date(checkInDate);
+      nextDay.setDate(nextDay.getDate() + 1);
+      setMinCheckOut(nextDay.toISOString().split('T')[0]);
+    }
+  }, [checkInDate]);
+
+  const onSubmit = async (data) => {
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    // Preparar los datos para el servidor
+    const requestData = {
+      "Nombre": data.firstName,
+      "Apellido": data.lastName,
+      "Correo Electronico": data.email,
+      "Telefono": data.phone,
+      "Fecha_Llegada": data.checkIn,
+      "Fecha_Salida": data.checkOut,
+      "Cantidad_Adultos": data.adults,
+      "Cantidad_Ninos": data.children || "0",
+      "Tipo_Habitacion": data.roomType,
+      "Mensaje": data.message || "",
+      "Estado_Contacto": "Sin_Contactar"
+    };
+
+    try {
+      // Enviar la solicitud a tu servidor Node.js
+      const response = await axios.post(API_URL, requestData);
+      
+      console.log('Respuesta del servidor:', response.data);
+      
+      if (response.data.success) {
+        setSubmitStatus('success');
+        alert("¡Gracias por su reserva! Nos pondremos en contacto con usted pronto.");
+        
+        // Esperar un momento y cerrar el formulario
+        setTimeout(() => {
+          reset();
+          toggleBookingForm();
+        }, 3000);
+      } else {
+        throw new Error(response.data.error || 'Error desconocido');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -109,8 +166,16 @@ const BookingForm = () => {
             <input
               id="checkIn"
               type="date"
+              min={new Date().toISOString().split('T')[0]}
               className={`input ${errors.checkIn ? 'border-red-500' : ''}`}
-              {...register('checkIn', { required: true })}
+              {...register('checkIn', { 
+                required: true,
+                onChange: (e) => {
+                  const nextDay = new Date(e.target.value);
+                  nextDay.setDate(nextDay.getDate() + 1);
+                  setMinCheckOut(nextDay.toISOString().split('T')[0]);
+                }
+              })}
             />
             {errors.checkIn && (
               <span className="text-xs text-red-500">Este campo es requerido</span>
@@ -124,11 +189,19 @@ const BookingForm = () => {
             <input
               id="checkOut"
               type="date"
+              min={minCheckOut}
               className={`input ${errors.checkOut ? 'border-red-500' : ''}`}
-              {...register('checkOut', { required: true })}
+              {...register('checkOut', { 
+                required: true,
+                validate: value => !checkInDate || new Date(value) > new Date(checkInDate) || 'La fecha de salida debe ser posterior a la fecha de llegada'
+              })}
             />
             {errors.checkOut && (
-              <span className="text-xs text-red-500">Este campo es requerido</span>
+              <span className="text-xs text-red-500">
+                {errors.checkOut.type === 'validate' 
+                  ? 'La fecha de salida debe ser posterior a la fecha de llegada'
+                  : 'Este campo es requerido'}
+              </span>
             )}
           </div>
         </div>
@@ -184,10 +257,12 @@ const BookingForm = () => {
             {...register('roomType', { required: true })}
           >
             <option value="">Seleccionar...</option>
-            <option value="standard">Habitación Estándar</option>
-            <option value="deluxe">Habitación Deluxe</option>
-            <option value="suite">Suite Presidencial</option>
-            <option value="royal">Suite Real</option>
+            <option value="Habitación Doble Económica">Habitación Doble Económica</option>
+            <option value="Habitación Doble Superior">Habitación Doble Superior</option>
+            <option value="Habitación Doble Deluxe">Habitación Doble Deluxe</option>
+            <option value="Habitación Triple">Habitación Triple</option>
+            <option value="Habitación Cuádruple">Habitación Cuádruple</option>
+            <option value="Habitación Quíntuple">Habitación Quíntuple</option>
           </select>
           {errors.roomType && (
             <span className="text-xs text-red-500">Este campo es requerido</span>
@@ -209,14 +284,37 @@ const BookingForm = () => {
         
         <div className="pt-2">
           <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+            whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
             type="submit"
-            className="w-full btn btn-primary py-3"
+            className={`w-full btn py-3 ${
+              isSubmitting 
+                ? 'bg-gray-400 cursor-not-allowed'
+                : submitStatus === 'error'
+                ? 'bg-red-500 hover:bg-red-600'
+                : 'btn-primary'
+            }`}
+            disabled={isSubmitting}
           >
-            Enviar Solicitud de Reserva
+            {isSubmitting ? (
+              <span className="flex items-center justify-center">
+                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Enviando...
+              </span>
+            ) : (
+              "Enviar Solicitud de Reserva"
+            )}
           </motion.button>
         </div>
+
+        {submitStatus === 'error' && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+            <span className="block sm:inline">Hubo un error al enviar su reserva. Por favor, intente nuevamente.</span>
+          </div>
+        )}
       </form>
     </div>
   );

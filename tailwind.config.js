@@ -1,10 +1,35 @@
 /** @type {import('tailwindcss').Config} */
+const {nextui} = require("@nextui-org/react");
+
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
+    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}"
+  ],
   theme: {
     extend: {
       colors: {
-        'primary': {
+        primary: '#007EA7', // Azul turquesa del mar Caribe
+        secondary: '#F2F2F2', // Gris claro de la arena
+        // Usar la paleta 'original-accent' para el color 'accent'
+        accent: {
+          50: '#fff7ed',
+          100: '#ffedd5',
+          200: '#fed7aa',
+          300: '#fdba74',
+          400: '#fb923c',
+          500: '#f97316', // Este es el tono que causa el error original
+          600: '#ea580c',
+          700: '#c2410c',
+          800: '#9a3412',
+          900: '#7c2d12',
+          950: '#431407',
+        },
+        background: '#FFFFFF', // Blanco
+        text: '#333333', // Gris oscuro
+        // Manteniendo los tonos originales por si se usan en algún lugar,
+        // pero renombrándolos para evitar conflictos.
+        'original-primary': {
           50: '#f0f9ff',
           100: '#e0f2fe',
           200: '#bae6fd',
@@ -17,7 +42,7 @@ module.exports = {
           900: '#0c4a6e',
           950: '#082f49',
         },
-        'secondary': {
+        'original-secondary': {
           50: '#f8fafc',
           100: '#f1f5f9',
           200: '#e2e8f0',
@@ -30,7 +55,7 @@ module.exports = {
           900: '#0f172a',
           950: '#020617',
         },
-        'accent': {
+        'original-accent': {
           50: '#fff7ed',
           100: '#ffedd5',
           200: '#fed7aa',
@@ -51,5 +76,6 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  darkMode: "class",
+  plugins: [nextui()],
 }

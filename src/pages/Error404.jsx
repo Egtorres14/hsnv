@@ -39,7 +39,7 @@ const Error404 = () => {
                 <p className="mb-2 text-secondary-600">O visite nuestras secciones principales:</p>
                 <div className="flex flex-wrap justify-center gap-4">
                   <Link to="/habitaciones" className="text-primary-600 hover:underline">Habitaciones</Link>
-                  <Link to="/servicios" className="text-primary-600 hover:underline">Servicios</Link>
+                  {/* Eliminado enlace a Servicios */}
                   <Link to="/contacto" className="text-primary-600 hover:underline">Contacto</Link>
                 </div>
               </div>
